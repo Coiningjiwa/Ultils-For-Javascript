@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <video autoplay muted playsinline></video>
+      <button>Start</button>
+      <div id="errorMsg" style="color: red">这里显示错误信息</div>
+    </div>
+  </body>
+  <script>
+    const btnStart = document.querySelector("button");
+    btnStart.addEventListener("click", () => {
+      navigator.mediaDevices
+        .getDisplayMedia({ video: true })
+        .then(handleSuccess, handleError);
+    });
+    function handleSuccess(stream) {
+      btnStart.disabled = true;
+      const video = document.querySelector("video");
+      video.srcObject = stream;
+
+      stream.getVideoTracks()[0].addEventListener("ended", () => {
+        errorMsg("the user has ended sharing the screen");
+        btnStart.disabled = false;
+      });
+    }
+    function handleError(error) {
+      errorMsg(`getDisplay error: ${error.name}`, error);
+    }
+    function errorMsg(msg, error) {
+      const errorELement = document.querySelector("#errorMsg");
+      errorELement.innerHTML += `<p>${msg}</p>`;
+      if (typeof error != undefined) {
+        console.error(error);
+      }
+    }
+  </script>
+</html>

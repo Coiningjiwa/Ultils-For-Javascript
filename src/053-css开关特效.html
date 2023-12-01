@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .offscreen{
+            display: none;
+        }
+        .switch{
+            position: relative;
+            display: inline-block;
+            width: 200px;
+            height: 100px;
+            border-radius: 100px;
+            background-color: gray;
+        }
+        .switch::after{
+            content: '';
+            position: absolute;
+            width: 98px;
+            height: 98px;
+            border-radius: 98px;
+            background-color: #fff;
+            top: 1px;
+            left: 1px;
+            transition: all 0.3s;
+        }
+        .offscreen[type="checkbox"]:checked+ .switch::after{
+            transform: translateX(100px);
+            background-color: red;
+        }
+        .offscreen[type="checkbox"]:checked+ .switch{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="checkbox" id="toggle" class="offscreen">
+        <label for="toggle" class="switch"></label>
+    </div>
+</body>
+</html>

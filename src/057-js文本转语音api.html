@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">hello world</div>
+    <button onclick="startAudio()">播放</button>
+    
+    <script>
+        const text = document.querySelector('#app').innerHTML
+        // console.log(text)
+        const msg = new SpeechSynthesisUtterance(text)
+        function startAudio(){
+            console.log('开始播放')
+            msg.volume = 2      //声音
+            msg.rate = 1        //速度
+            window.speechSynthesis.speak(msg)
+        }
+    </script>
+</body>
+</html>

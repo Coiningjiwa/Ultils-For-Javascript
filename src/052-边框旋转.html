@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color: black;
+            display: flex;
+            justify-content: center;
+        }
+        .box{
+            margin-top:240px;
+            width: 120px;
+            height: 52px;
+            line-height: 52px;
+            color: #0ebeff;
+            font-size: 24px;
+            background: #000;
+            border: none;
+            outline: none;
+            z-index: 1;
+            border-radius: 10px;
+            /* outline: 4px solid #fff; */
+            position: relative;
+            overflow: hidden;
+        }
+        .box::before{
+            content: '';
+            position: absolute;
+            background: #f40;
+            width: 200%;
+            height: 200%;
+            z-index: -2;
+            left: 50%;
+            top: 50%;
+            animation: rotate 2s linear infinite;
+            transform-origin: 0 0 ;
+        }
+        .box::after{
+            content: '';
+            position: absolute;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            background: #000;
+            top: 2px;
+            left: 2px;
+            border-radius: 10px;
+            z-index: -1;
+        }
+        @keyframes rotate{
+            to{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="box">边框按钮</button>
+</body>
+</html>

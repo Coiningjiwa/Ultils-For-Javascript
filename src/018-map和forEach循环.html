@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <il>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </il>
+    <script>
+        var arr = ['a','b','c','d']
+        arr.forEach(
+            (item,index,array)=>{
+                console.log(`arr[${index}]=${item}*---forEach`)
+            }
+        )
+        arr.map(
+            (item,index,array)=>{
+                console.log(`arr[${index}]=${item}---map`)
+            }
+        )
+        
+        
+        // forEach和map用法基本一直,都是循环遍历数组
+        //但是他们也是有区别的,forEach没有返回值,但是map有返回值
+        //需要修改原数组的值:forEach利用第二个参数下标索引修改原数组
+
+        var lis = document.querySelectorAll('li')       //quertSelectorAll获取的元素数组是真数组
+        // lis = [].slice.call(lis)        //将为数组转化为真数组
+        lis.forEach((item,index)=>{
+            item.innerHTML = `我是第${index+1}项`
+        })
+    </script>
+</body>
+</html>

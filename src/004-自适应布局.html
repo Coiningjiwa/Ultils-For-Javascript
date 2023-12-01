@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div{
+            display: flex;
+        }
+        #div div:first-child{
+            background-color: red;
+            flex:0 0 50px
+        }
+        #div div:last-child{
+            background-color: yellow;
+            flex:0 0 50px;
+        }
+        #div div:nth-child(2){
+            background-color: green;
+            flex:1 1 auto;
+        }
+        @media (min-device-width:300px) and (max-device-width:399px){
+            #div div:nth-child(2){
+                background-color: blue;
+            }
+        }
+        @media (min-device-width:400px) and (max-device-width:499px){
+            #div div:nth-child(2){
+                background-color: skyblue;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 两头固定，中间伸缩的自适应布局 -->
+    <div id="div">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
+</body>
+</html>

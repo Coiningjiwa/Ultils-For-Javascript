@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>黑客帝国</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="mom" style="background:#000"></canvas>
+    <script>
+        var canvas=document.getElementById('mom');
+        var ctx=canvas.getContext('2d');
+        var w=window.innerWidth;
+        var h=window.innerHeight;
+        canvas.width=w;
+        canvas.height=h;
+        var fontSize=16;
+        var colunms=Math.floor(w/fontSize);
+        var drops=[];/* 数组用来存放canvas中文字的Y值 更新位置*/
+        console.log(drops);
+        for(var i=0;i<colunms;i++){
+            drops.push(0);//规定初始时从页面最顶端下来
+        }
+        var str="1234567890";
+        draw();
+        setInterval(draw,20);
+        function draw(){
+            ctx.fillStyle='rgba(0,0,0,0.05)';/* 背景颜色 */
+            // 由于页面在反复调用这个draw方法，透明度也在叠加，使里面的文字颜色也有变化，所有看起来感觉有3D的感觉，有层次感。
+            ctx.fillRect(0,0,w,h);
+            ctx.font="700 "+fontSize+"px 微软雅黑";/* 字体颜色 */
+            ctx.fillStyle="#00cc33";
+            //写入画布
+            for(var i=0;i<colunms;i++){
+                var index=Math.floor(Math.random()*str.length);
+                var x=i*fontSize;
+                var y=drops[i]*fontSize;
+                ctx.fillText(str[index],x,y);
+                if(y>=canvas.height&&Math.random()>0.99){// 0.99的随机数造成列消失的时间不一致，产生的列也随之改变
+                    drops[i]=0;//超出高度回到起点
+                    // console.log(drops)
+                }
+                drops[i]++;
+            }
+        }
+    </script>
+</body>
+</html>

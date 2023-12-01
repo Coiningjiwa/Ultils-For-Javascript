@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="downLoadExcel()">下载</button>
+    <script>
+        const downLoad = (data,name)=>{
+            const a = document.createElement('a')
+            const result = data.map(item=>{
+                return Object.values(item).join('\t')
+            }).join('\n')
+            // a.href = URL.createObjectURL(new Blob([result]))
+            a.href = URL.createObjectURL(new Blob(['http://175.178.197.126:9300/statics/2022/11/13/1667542010714_20221113133512A033.png']))
+            a.target = '_blank'
+            a.setAttribute('download','20221113133512A033.png')
+            a.click()
+        }
+        const downLoadExcel = () =>{
+            downLoad([
+                {id:'ID',name:'姓名',age:'年龄'},
+                {id:1,name:'张三',age:11},
+                {id:2,name:'李四',age:18},
+                {id:3,name:'王麻子',age:21}
+            ],'班级表.docx')
+        }
+    </script>
+</body>
+</html>

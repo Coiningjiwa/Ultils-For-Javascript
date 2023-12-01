@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div{
+      font-size: 34px;
+    }
+    div div{
+      line-height: 50px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div></div>
+  <script>
+    const div = document.querySelector('div')
+    let list = ['这是第一行','这是第二行','这是第三行','这是第四行','这是第五行']
+    for(let i = 0;i < list.length;i++){
+      console.log(i)
+      const div1 = document.createElement('div')
+      div1.innerText = list[i]
+      div.appendChild(div1)
+      div1.addEventListener('mousedown',()=>{
+        
+      })
+    }
+  </script>
+</body>
+</html>

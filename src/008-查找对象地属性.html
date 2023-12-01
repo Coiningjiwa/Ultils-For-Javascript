@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function checkProp(obj,key){
+        return obj[key] !== undefined
+    }
+
+    function checkKey(obj,key){
+        // Object.keys()方法会返回一个数组，包含对象地所有属性
+        return Object.keys(obj).includes(key)
+    }
+
+    function hasProp(obj,key){
+        return obj.hasOwnProperty(key)
+    }
+
+    function hasKey(obj,key){
+        return key in obj
+    }
+
+    let Doo = {
+        name:'Doo',
+        age:undefined,
+    }
+
+    console.log(checkProp(Doo,'name'))      //true
+    console.log(checkProp(Doo,'age'))       //false,所以当对象地属性值是undefined时，这个方法不行
+
+    Object.defineProperty(Doo,'gender',{
+        enumerable:false,
+        value:'男'
+    })
+    console.log(Doo.gender)     //男
+    console.log(checkKey(Doo,'gender'))       //false，所以当用Object.defineProperty()添加属性时，这个方法不行
+
+    console.log(hasProp(Doo,'gender'))      //true
+    console.log(Doo.toString)       //ƒ toString() { [native code] }
+    console.log(hasProp(Doo,'toString'))        //false,当查找对象原型上的属性时，这个方法不行
+
+    console.log(hasKey(Doo,'toString'))     //true,所以最终解决方案 in 方法，可以应对上诉所有情况
+</script>
+</html>

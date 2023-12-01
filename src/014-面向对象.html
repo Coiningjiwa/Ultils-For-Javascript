@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> I Am Singer</title>
+</head>
+<body>
+    <div style="width:max-content;">
+        <img id="GEM" src="https://p1.music.126.net/3XEICRFzQPrHPUMD0xm1Jw==/109951163069323980.jpg?param=130y130" alt="邓紫棋" style="width:400px">
+        <img id="JJ" src="https://p1.music.126.net/QXZRckFTN5375vdQSyG0jA==/109951166919095160.jpg?param=177y177" alt="林俊杰" style="height:400px">
+        <br>
+        <br>
+        <button id="gem">邓紫棋</button>
+        <button id="ljj" style="float: right;">林俊杰</button>
+    </div>
+    <script>
+        // 封装：提高程序的安全性
+        class Star {
+            constructor(name,song){
+                this.name = name
+                this.song = song
+            }
+            sing(){
+                console.log(this.name + ' is sing ' + this.song)
+            }
+            dance(){
+                if(this.name === '邓紫棋'){
+                    console.log('she is dancing')
+                }else {
+                    console.log('he cannot dance')
+                }
+            }
+        }
+
+        // 继承：提高程序的复用性
+        class GEM extends Star {
+            constructor(name,song){
+                super(name,song)
+                this.img = document.querySelector('#GEM')
+                this.img.onclick = this.sing.bind(this)
+                this.btn = document.querySelector('#gem')
+                this.btn.onclick = this.dance.bind(this)
+            }
+        }
+        class LJJ extends Star {
+            constructor(name,song){
+                super(name,song)
+                this.img = document.querySelector('#JJ')
+                this.img.onclick = this.sing.bind(this)
+                this.btn = document.querySelector('#ljj')
+                this.btn.onclick = this.dance.bind(this)
+            }
+        }
+
+        // 多态：提高程序的维护
+        // 不同的对象去完成某种行为会产生不同的状态，代码自己选择合适的操作，不用程序员一个个判断，
+        let gem = new GEM('邓紫棋','泡沫')
+        let ljj = new LJJ('林俊杰','交换余生')
+    </script>
+</body>
+</html>

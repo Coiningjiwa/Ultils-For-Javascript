@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="father">
+        <div id="son" style="
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100px;
+            background-color: red;width:100px;">
+        </div>
+    </div>
+</body>
+
+<script>
+    let father = document.querySelector('#father')
+    let son = document.querySelector('#son')
+    father.addEventListener('click',function(e){
+        console.log(e)
+        let offset = parseInt(son.style.width)/2
+        son.style.left = e.offsetX - offset + 'px'
+        son.style.top = e.offsetY - offset + 'px'
+    })
+    console.log(son.style)
+</script>
+</html>
+
+<style>
+    #father {
+        position: relative;
+        height: 800px;
+        border: 5px solid yellow;
+    }
+</style>

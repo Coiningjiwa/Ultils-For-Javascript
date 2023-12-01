@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            background-color: coral;
+        }
+    </style>
+</head>
+<body>
+    <div id="card"></div>
+    <script>
+        const card = document.querySelector('#card')
+        // html2canvas()方法传入一个页面的元素返回一个和页面元素一样的canvas制作的标签，then()接收返回值
+        html2canvas(card).then((canvas)=>{
+            // 移除页面上的div标签
+            document.body.removeChild(card)
+            // 在页面上添加div标签制作出来的canvas图片，canvas标签支持右键保存
+            document.body.appendChild(canvas)
+        })
+    </script>
+</body>
+</html>

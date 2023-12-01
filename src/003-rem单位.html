@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var c = ()=>{
+            let w = document.documentElement.clientWidth    //获取设备宽度
+            let d = (20*(w/320)>40 ? 40 + 'px': (20*(w/320) + 'px'))
+            document.documentElement.style.fontSize = d
+        }
+        // 页面加载和页面尺寸变化的时候调用c方法
+        addEventListener('load',c)
+        addEventListener('resize',c)
+    </script>
+    <style>
+        div{
+            font-size: 1rem;    /*1rem = html的fontSize的值*/
+        }
+    </style>
+</head>
+<body>
+    <!-- rem:相对于根元素字体大小的单位 -->
+    <div>Hello World</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let obj = {
+        name:'Doo',
+        age:25,
+        do:function (){
+            // console.log(this.name + ' is ' + this.age + ' 岁')
+            return `${this.name} is ${this.age} 岁`
+        }
+    }
+    const proxy = new Proxy(obj,{       //第一个参数是一个对象，第二个参数是它的配置对象
+        get(target,propKey){
+            // console.log(target)
+            // console.log(key)
+            return target[propKey]
+        },
+        set(target,propKey,value){
+            target[propKey] = value
+            return true     //严格模式下要return true
+        },
+        has(target,propKey){
+            // console.log(target)
+            // console.log(propKey)
+            if(propKey in target){
+                return true
+            }
+        }
+    })
+    
+    console.log(proxy.name)     //Doo
+    console.log(proxy.age)      //25
+    // proxy.do()
+    console.log(proxy.do())     //Doo is 25 岁
+
+    proxy.name = 'Alex'
+    proxy.age = 33
+
+    console.log(proxy.name)     //Alex
+    console.log(proxy.age)      //33
+    console.log(proxy.do())     //Alex is 33 岁
+    // 总的来说Proxy代理就是能够实现基本操作的拦截和自定义（如属性的查找、赋值、枚举、函数调用等）
+
+    console.log('name' in proxy)        //true
+    console.log('gender' in proxy)      //false
+    proxy.gender = 'male'
+    console.log('gender' in proxy)      //true
+
+    function sum (a,b){
+        console.log(a+ b)
+    }
+    const p = new Proxy(sum,{
+        apply(target,thisArg,argArray){     //代理的目标对象，被调用的上下文对象，被调用的参数数组,apply方法可以拦截函数的调用
+            // console.log('拦截')
+            // console.log(thisArg)
+            if(thisArg){
+                target.apply(thisArg,argArray)
+            }else{
+                console.log('hello world')
+            }
+        }
+    })
+    p(1,2)      //hello world
+    p.call(proxy,3,4)       //7
+    p.apply(proxy,[5,6])        //11
+</script>
+</html>

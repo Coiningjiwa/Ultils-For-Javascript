@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas样式</title>
+</head>
+<body>
+  <canvas id="canvas1" width="200" height="200" style="border:1px solid #000"></canvas>
+  <canvas id="canvas2" width="200" height="200" style="border:1px solid #000"></canvas>
+  <canvas id="canvas3" width="200" height="200" style="border: 1px solid #000;"></canvas>
+  <canvas id="canvas4" width="280" height="200" style="border: 1px solid #000;"></canvas>
+  <canvas id="canvas5" width="200" height="200" style="border: 1px solid #000;"></canvas>
+
+  
+
+  <script>
+    // style  fillStyle:填充颜色，strokeStyle:边框颜色
+    const canvas1 = document.querySelector('#canvas1')
+    const ctx1 = canvas1.getContext('2d')
+    for (var i = 0; i < 5; i++){
+      for (var j = 0; j < 5; j++){
+        ctx1.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ',' +
+          Math.floor(255 - 42.5 * j) + ',0)';
+        ctx1.fillRect(j * 40, i * 40, 40, 40);
+      }
+    }
+    const canvas2 = document.querySelector('#canvas2')
+    const ctx2 = canvas2.getContext('2d')
+    for (var i = 0; i < 5; i++){
+      for (var j = 0; j < 5; j++){
+        ctx2.strokeStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ',' +
+          Math.floor(255 - 42.5 * j) + ',0)';
+        ctx2.strokeRect(j * 40, i * 40, 30, 30);
+      }
+    }
+
+
+    // lineCap = type
+    const canvas3 = document.querySelector('#canvas3')
+    const ctx3 = canvas3.getContext('2d')
+    // butt(默认)：线段末端以方形结束
+    // round：线段末端以圆形结束
+    // square：线段末端以方形结束，但是增加了一个宽度和线段相同，高度是线段厚度一半的矩形区域。
+    const lineCaps = ['butt','round','square']
+    ctx3.lineWidth = 20
+    for (let i = 0; i < lineCaps.length; i++){
+      ctx3.beginPath()
+      ctx3.moveTo(20 + 30 * i, 50)
+      ctx3.lineTo(20 + 30 * i, 150)
+      ctx3.lineCap = lineCaps[i]
+      ctx3.stroke()
+    }
+    ctx3.beginPath()
+    ctx3.moveTo(0, 50)
+    ctx3.lineTo(200, 50)
+    ctx3.moveTo(0, 150)
+    ctx3.lineTo(200, 150)
+    ctx3.strokeStyle = "red"
+    ctx3.lineWidth = 1
+    ctx3.stroke()
+
+
+    // lineJoin = type
+    const canvas4 = document.querySelector('#canvas4')
+    const ctx4 = canvas4.getContext('2d')
+    // round 通过填充一个额外的，圆心在相连部分末端的扇形，绘制拐角的形状。 圆角的半径是线段的宽度。
+    // bevel 在相连部分的末端填充一个额外的以三角形为底的区域， 每个部分都有各自独立的矩形拐角。
+    // miter(默认) 通过延伸相连部分的外边缘，使其相交于一点，形成一个额外的菱形区域。
+    const lineJoin = ['round', 'bevel', 'miter']
+    ctx4.lineWidth = 20
+    for(let i = 0;i<lineJoin.length;i++){
+      ctx4.lineJoin = lineJoin[i]
+      ctx4.beginPath()
+      ctx4.moveTo(30, 30 + i * 50)
+      ctx4.lineTo(80, 80 + i * 50)
+      ctx4.lineTo(130, 30 + i * 50)
+      ctx4.lineTo(180, 80 + i * 50)
+      ctx4.lineTo(230, 30 + i * 50)
+      ctx4.stroke()
+    }
+
+    // 虚线
+    const canvas5 = document.querySelector('#canvas5')
+    const ctx5 = canvas5.getContext('2d')
+    ctx5.setLineDash([20, 5])   //[实线长度, 间隙长度]
+    // ctx5.lineDashOffset = 20   //设置虚线偏移量
+    ctx5.strokeRect(20,20,160,160)
+
+    ctx5.font = '35px sans-serif'
+    ctx5.fillText('天若有情',30,60)
+    ctx5.setLineDash([20,0]) 
+    ctx5.strokeText('天若有情',30,120)
+  </script>
+</body>
+</html>

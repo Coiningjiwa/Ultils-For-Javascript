@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>smileFace</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 100px;
+    }
+    .face{
+      margin-top: 10px;
+      background-color: red;
+      width: 100px;
+      height: 100px;
+      border-radius: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      --delay:0s;
+      animation: faceColor 1s linear forwards paused;
+      animation-delay: var(--delay);
+    }
+    .eyes{
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+      margin-top: 25px;
+    }
+    .eye{
+      background-color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      clip-path: polygon(100% 1%, 100% 0, 100% 100%, 0 100%, 0 52%);
+      animation: eyesChange 1s linear forwards paused;
+      animation-delay: var(--delay);
+    }
+    .eye:last-child{
+      clip-path: polygon(0 0, 99% 48%, 100% 100%, 0 100%, 0 0);
+    }
+    @keyframes eyesChange {
+      to{
+        clip-path: polygon(100% 1%, 100% 0, 100% 100%, 0 100%, 0 0);
+      }
+    }
+    @keyframes faceColor{
+      to{
+        background-color: greenyellow;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>您对我的印象是</h1>
+  <div class="face">
+    <div class="eyes">
+      <div class="eye"></div>
+      <div class="eye"></div> 
+    </div>
+    <div class="mouth"></div>
+  </div>
+  <input type="range" min="0.01" max="1" step="0.01">
+  <script>
+    const ipt = document.querySelector('input')
+    const face = document.querySelector('.face')
+    const iptChange = ()=>{
+      face.style.setProperty('--delay',`-${ipt.value}s`)
+    }
+    ipt.addEventListener('input',iptChange)
+    iptChange()
+  </script>
+</body>
+</html>

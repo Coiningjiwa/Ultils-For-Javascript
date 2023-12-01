@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body{
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container{
+      width: 200px;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ball{
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      background-color: red;
+      animation: move 1s linear forwards paused;  /*forwards：动画放完停在最后一帧的位置*/
+      /* --delay:0s;
+      animation-delay: var(--delay); */
+    }
+    @keyframes move{
+      from{
+        translate: 0;
+        background-color: red;
+      }
+      to{
+        translate: 180px;
+        background-color: greenyellow;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="ball"></div>
+    <input type="range" min="0.01" max="1" step="0.01">
+  </div>
+
+  <script>
+    const ipt = document.querySelector('input')
+    const ball = document.querySelector('.ball')
+
+    const inpChange = () =>{
+      // ball.style.setProperty('--delay',`-${ipt.value}s`)//设置动画的延迟播放时间道道控制动画的效果
+      ball.style.animationDelay = `-${ipt.value}s`
+    }
+    ipt.addEventListener('input',inpChange)
+    inpChange()
+  </script>
+</body>
+</html>

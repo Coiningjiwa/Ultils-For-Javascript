@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body{
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      --r:80px
+    }
+    .main{
+      position: relative;
+      background-color: blue;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .item{
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      background-color: red;
+      text-align: center;
+      line-height: 30px;
+      top: calc(cos((360deg/6)*var(--index)) * var(--r) * -1);
+      left: calc(sin((360deg/6)*var(--index)) * var(--r));
+    }
+    .center{
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="center"></div>
+    <dic class="item" style="--index:0">1</dic>
+    <dic class="item" style="--index:1">2</dic>
+    <dic class="item" style="--index:2">3</dic>
+    <dic class="item" style="--index:3">4</dic>
+    <dic class="item" style="--index:4">5</dic>
+    <dic class="item" style="--index:5">6</dic>
+  </div>
+</body>
+</html>

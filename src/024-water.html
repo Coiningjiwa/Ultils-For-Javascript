@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水滴</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            background-color: #00a8ff;
+        }
+        #water{
+            margin-top: 200px;
+            width: 300px;
+            height: 300px;
+            border-radius: 59% 41% 63% 37% / 22% 26% 74% 78%;
+            box-shadow: inset 10px 20px 30px rgba(0, 0, 0, 0.5),
+                        inset -10px -10px 20px rgba(225, 225, 225, 0.8),
+                        10px 10px 20px rgba(0, 0, 0, 0.3),
+                        15px 15px 30px rgba(0, 0, 0, 0.05);
+            animation: avtion 3s linear infinite alternate;
+        }
+        #water::after{
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: rgba(225, 225, 225, 0.8);
+            border-radius: 50% 50% 61% 37% / 54% 63% 37% 46%;
+            position: absolute;
+            top: 250px;
+            left: 48%;
+            animation: move 2s linear infinite alternate;
+        }
+        #water::before{
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: rgba(225, 225, 225, 0.8);
+            border-radius: 30% 70% 61% 37% / 10% 20% 80% 90%;
+            position: absolute;
+            top: 300px;
+            left: 46%;
+            animation: liner 4s linear infinite alternate;
+        }
+        @keyframes avtion{
+            25%{
+                border-radius: 30% 70% 44% 56% / 42% 26% 74% 58%;
+            }
+            50%{
+                border-radius: 30% 70% 21% 79% / 57% 26% 74% 43%;
+            }
+            100%{
+                border-radius: 30% 70% 51% 49% / 33% 40% 60% 67%;
+            }
+        }
+        @keyframes move{
+            50%{
+                top:260px;
+                left: 50%;
+            }
+            100%{
+                top: 265px;
+                left: 48%;
+            }
+        }
+        @keyframes liner{
+            50%{
+                top: 320px;
+                left: 47%;
+            }
+            100%{
+                top: 312px;
+                left: 44%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="water"></div>
+</body>
+</html>

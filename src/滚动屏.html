@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body{
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
+    .box{
+      width: 340px;
+      height: 200px;
+      overflow-x: auto;
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+      scroll-snap-type: x mandatory;
+      /* mandatory: 如果用户没有滚动操作时, 滚动容器必须捕获到一个滚动位置(snap position). 如果存在有效的捕获位置, 滚动容器必须在滚动停止时捕获. */
+      /* proximity: 滚动容器可能会在滚动停止时捕获到一个滚动位置, 这取决于浏览器设定的滚动参数. */
+    }
+    .item{
+      flex-shrink: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color);
+      scroll-snap-align: center;/*start center end*/
+      
+      /* scroll-snap-stop: always; */
+    }
+    .dot_main{
+      display: flex;
+      gap: 5px;
+    }
+    .dot{
+      width: 10px;
+      height: 10px;
+      border-radius: 5px;
+      background-color: #000;
+    }
+    .red{
+      background-color: red !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="item" id="0" style="--color:red"></div>
+    <div class="item" id="1" style="--color:yellow"></div>
+    <div class="item" id="2" style="--color:blue"></div>
+  </div>
+  <div class="dot_main">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <script>
+    const box = document.querySelector('.box')
+    const items = document.querySelectorAll('.item')
+    const dots = document.querySelectorAll('.dot')
+
+    dots.forEach((e,index)=>{
+      e.addEventListener('click',()=>{
+        items[index].scrollIntoView({
+          behavior: 'smooth',  //它定义元素出现在可视区内过程的动画，有 auto 和 smooth 两种选择
+          // block:'',  //定义元素的垂直方向的对齐方式，有"start", "center", "end", 或 "nearest" 4 个选项，默认 start
+          // inline:''  //定义元素水平对齐方式，有"start", "center", "end", 或 "nearest"4 个选项，默认"nearest"
+        })
+        dots.forEach(b=>{
+          b.classList.remove('red')
+        })
+        e.classList.add('red')
+      })
+    })
+
+    const option = {
+      threshold:1,
+      root:box
+    }
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(i=>{
+        if(i.isIntersecting){
+          dots.forEach((e,index)=>{
+            if(index == i.target.id){
+              e.classList.add('red')
+            }else{
+              e.classList.remove('red')
+            }
+          })
+        }
+      })
+    },option)
+    items.forEach(e=>{
+      observer.observe(e)
+    })
+
+  </script>
+</body>
+</html>
