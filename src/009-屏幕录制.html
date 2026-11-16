@@ -4,31 +4,65 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Screen Recording</title>
   </head>
   <body>
     <div>
-      <video autoplay muted playsinline></video>
+      <!-- <video autoplay muted playsinline></video> -->
       <button>Start</button>
       <div id="errorMsg" style="color: red">这里显示错误信息</div>
     </div>
   </body>
   <script>
     const btnStart = document.querySelector("button");
+    let mediaRecorder;
+    let recordedChunks = [];
+
     btnStart.addEventListener("click", () => {
       navigator.mediaDevices
         .getDisplayMedia({ video: true })
         .then(handleSuccess, handleError);
     });
+
     function handleSuccess(stream) {
       btnStart.disabled = true;
-      const video = document.querySelector("video");
-      video.srcObject = stream;
+    //   const video = document.querySelector("video");
+    //   video.srcObject = stream;
+
+      // 开始录制
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          recordedChunks.push(event.data);
+        }
+      };
+
+      mediaRecorder.start();
 
       stream.getVideoTracks()[0].addEventListener("ended", () => {
         errorMsg("the user has ended sharing the screen");
         btnStart.disabled = false;
+        // 停止录制并保存
+        mediaRecorder.stop();
       });
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: "video/webm" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.href = url;
+        a.download = `screen-recording-${Date.now()}.webm`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 100);
+        errorMsg("录制的视频已保存");
+      };
     }
     function handleError(error) {
       errorMsg(`getDisplay error: ${error.name}`, error);
